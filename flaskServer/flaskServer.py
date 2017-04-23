@@ -1,8 +1,4 @@
-import calendar
-from datetime import datetime
-from json import JSONEncoder
-
-from flask import Flask, jsonify, url_for, send_from_directory
+from flask import Flask, jsonify, url_for, send_from_directory, render_template
 from flask_mysqldb import MySQL
 from MySQLdb.cursors import DictCursor
 
@@ -23,7 +19,7 @@ def date_handler(obj):
 
 @app.route('/')
 def root():
-    return app.send_static_file('index.html')
+    return render_template('index.html')
 
 
 @app.route('/api')
