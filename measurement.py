@@ -24,9 +24,8 @@ def make_measurement():
                                  user=config.get(section, 'MYSQL_USER'),
                                  passwd=config.get(section, 'MYSQL_PASSWORD'),
                                  db=config.get(section, 'MYSQL_DB'))
-    config.c
     cur = connection.cursor()
-    value = 25.4
+    value = get_light()
     cur.execute(
         """INSERT INTO 
             measurements (value)
