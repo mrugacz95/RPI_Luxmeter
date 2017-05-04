@@ -20,10 +20,10 @@ def make_measurement():
     config = configparser.ConfigParser()
     config.read('databaseconfig.ini')
     section = 'DEFAULT'
-    connection = MySQLdb.connect(host=config.get(section, 'MYSQL_HOST'),
-                                 user=config.get(section, 'MYSQL_USER'),
-                                 passwd=config.get(section, 'MYSQL_PASSWORD'),
-                                 db=config.get(section, 'MYSQL_DB'))
+    connection = MySQLdb.connect(host=config.get(section, 'host'),
+                                 user=config.get(section, 'user'),
+                                 passwd=config.get(section, 'passwd'),
+                                 db=config.get(section, 'db'))
     cur = connection.cursor()
     value = get_light()
     cur.execute(
