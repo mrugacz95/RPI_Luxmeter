@@ -10,16 +10,18 @@ function getData() {
     };
     xhttp.open("GET", "/api", true);
     xhttp.send();
+    setTimeout(getData, 5*60*1000)
 }
 function drawChart(data) {
+    let userOffset = (new Date()).getTimezoneOffset()*60000;
     let dataTable = new google.visualization.DataTable();
     const options = {
         vAxis: {
-            scaleType: 'log',
+            scaleType: 'mirrorLog',
             title: 'Lux'
         },
         legend: {position: 'none'},
-        curveType: 'function',
+        //curveType: 'function',
         chartArea: {
             top: 55,
             height: '40%'
@@ -28,7 +30,8 @@ function drawChart(data) {
             title: "Date",
             gridlines: {count: 20, color: '#CCC'},
             format: 'hh:mm:ss',
-            ticks: data.map((obj) => new Date(obj['date'])),
+            ticks: data.map((obj) => { return new Date((new Date(obj['date'])).getTime() + userOffset) }),
+            format: 'dd/MM HH:mm',
             slantedTextAngle: 45,
             slantedText: true
         },
@@ -40,7 +43,10 @@ function drawChart(data) {
     };
     dataTable.addColumn('date', 'Time');
     dataTable.addColumn('number', 'Lux');
-    data = data.map((obj) => [new Date(obj['date']), obj['value']]);
+    console.log(userOffset);
+    data = data.map((obj) => { 
+          return [new Date((new Date(obj['date'])).getTime() + userOffset), obj['value'] ]
+    });
     dataTable.addRows(data);
     let chart = new google.visualization.LineChart($('#chart').get(0));
 

@@ -34,7 +34,7 @@ def root():
 @app.route('/api')
 def hello_world():
     cur = mysql.connection.cursor(cursorclass=DictCursor)
-    cur.execute('SELECT * FROM measurements WHERE date > NOW() - INTERVAL 1 DAY')
+    cur.execute('SELECT * FROM measurements WHERE date > NOW() - INTERVAL 1 DAY ORDER BY date')
     rv = cur.fetchall()
     return jsonify(rv)
 
