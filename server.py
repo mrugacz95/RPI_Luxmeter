@@ -1,5 +1,6 @@
 import argparse
 import configparser
+import measurement
 
 
 from flask import Flask, jsonify, url_for, send_from_directory, render_template, request
@@ -32,7 +33,7 @@ def root():
 
 
 @app.route('/api')
-def hello_world():
+def api():
     cur = mysql.connection.cursor(cursorclass=DictCursor)
     date_begin = request.args.get('user')
     date_end = request.args.get('user')
@@ -40,6 +41,10 @@ def hello_world():
     rv = cur.fetchall()
     return jsonify(rv)
 
+@app.route('/measurement')
+def make_measurement():
+    measurement.make_measurement()
+    return ('', 200) 
 
 if __name__ == '__main__':
         app.run(debug=True)
