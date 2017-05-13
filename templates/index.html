@@ -3,21 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Luxmeter</title>
+    <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
+    <script type="text/javascript" src="/static/moment/moment.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <script src="/static/charts.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css"
+          href="/static/bootstrap-datetimepicker.min.css">
 </head>
 <body>
 <h1>Last sun measurements!</h1>
 <main class="container">
-        <div id="chart">
-		<div class="center">
-		Loading...
-		</div>
-	</div>
+    <div class="row">
+        <div class='col-sm-10 col-sm-offset-1'>
+            <div class="row">
+                <div class='col-sm-8'>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="date_input_from">From</label>
+                            <div class='input-group date' id='date_from'>
+                                <input type='text' class="form-control" id="date_input_from"/>
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="date_input_to">To</label>
+                            <div class='input-group date' id='date_to'>
+                                <input type='text' class="form-control" id="date_input_to"/>
+                                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class='col-sm-4'>
+                    <div>
+                        <label>Update chart:</label>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" id="update_chart">Update</button>
+                        <button class="btn btn-primary">Make measurement</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="chart">
+                <div class="center">
+                    Loading...
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
+<footer  class="container">Marcin Mrugas 2017</footer>
 </body>
 </html>

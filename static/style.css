@@ -17,6 +17,12 @@ main {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
     0 25px 50px 0 rgba(0, 0, 0, 0.1);
     color: black;
+    padding: 15px;
+}
+footer {
+    font-size: xx-small;
+    text-align: right;
+    margin-bottom: 50px;
 }
 #chart {
     display: flex;
@@ -28,3 +34,5 @@ main {
     width: 100%;
     text-align: center;
 }
+.date_centered { margin: auto; max-width: 500px;}
+
