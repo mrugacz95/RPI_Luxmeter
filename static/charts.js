@@ -69,14 +69,14 @@ $('document').ready(function () {
     let datepicker = $('#date_from').datetimepicker().data('DateTimePicker');
     datepicker.options({
         'maxDate': new Date(),
-        'defaultDate': new Date(),
+        'defaultDate': moment().subtract(1, 'd'),
         'sideBySide': true,
         'showTodayButton': true,
     });
     datepicker = $('#date_to').datetimepicker().data('DateTimePicker');
     datepicker.options({
         'maxDate': new Date(),
-        'defaultDate': moment().subtract(1, 'd'),
+        'defaultDate': moment(),
         'sideBySide': true,
         'showTodayButton': true,
     });
@@ -87,14 +87,17 @@ $('document').ready(function () {
         make_measurement();
     });
     $('#update_chart').click(() => {
-        $.post(
+        $.get(
             '/api',
             {
-                'date_from': $('#date_from').datetimepicker().data('DateTimePicker').getFormattedDate('yyyy-mm-dd MM:ss'),
-                'date_to': $('#date_to').datetimepicker().data('DateTimePicker').getFormattedDate('yyyy-mm-dd MM:ss'),
+                'date_from': $('#date_from').datetimepicker().data('DateTimePicker').date().format('YYYY-MM-DD H:mm:ss'),
+                'date_to': $('#date_to').datetimepicker().data('DateTimePicker').date().format('YYYY-MM-DD H:mm:ss'),
             }
-        );
-    });
+        )
+	.done((data) => {
+		drawChart(data);
+	});
+    });   
     console.log($('make_measurement').get(0));
 });
 $(window).resize(function () {

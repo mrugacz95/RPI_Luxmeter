@@ -32,18 +32,17 @@ def root():
     return render_template('index.html')
 
 
-@app.route('/api')
+@app.route('/api/', methods=['GET'])
 def measurements():
-    date_from = request.args.get('from')
-    date_to = request.args.get('to')
+    date_from = request.args.get('date_from')
+    date_to = request.args.get('date_to')
     cur = mysql.connection.cursor(cursorclass=DictCursor)
-    date_begin = request.args.get('user')
-    date_end = request.args.get('user')
-
+    print(date_from, ' ', date_to)
     if date_from == None or date_to == None:
         cur.execute('SELECT * FROM measurements WHERE date > NOW() - INTERVAL 1 DAY ORDER BY date')
     else:
-        cur.execute('SELECT * FROM measurements WHERE date >  STR_TO_DATE(%s, "%d/%m/%Y") AND date <  STR_TO_DATE(%s, "%d/%m/%Y") DAY ORDER BY date', date_from, date_to)
+        cmd = 'SELECT * FROM measurements WHERE date > (%s) AND date < (%s) ORDER BY date'
+        cur.execute(cmd, (date_from, date_to))
 
     rv = cur.fetchall()
     return jsonify(rv)
