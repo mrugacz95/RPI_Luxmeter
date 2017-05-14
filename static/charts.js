@@ -31,8 +31,8 @@ function drawChart(data) {
         hAxis: {
             title: "Date",
             gridlines: {count: 11, color: '#CCC'},
-            format: 'hh:mm:ss',
-            ticks: data.filter((item, index) => index % 18*4*diffDays === 0).map((obj) => {
+            format: 'hh:mm:ss dd.MM',
+            ticks: data.filter((item, index) => index % Math.round(data.length / 8) === 0).map((obj) => {
                 return new Date((new Date(obj['date'])).getTime() + userOffset)
             }),
             slantedTextAngle: 45,
@@ -53,7 +53,7 @@ function drawChart(data) {
         let value = obj['value'];
         //let secs = (date.getSeconds() + (60 * date.getMinutes()) + (60 * 60 * date.getHours())) / (60*60*24);
         //let sun =  Math.max(0, -1* Math.cos(secs  * Math.PI*2)) * 10000;
-        return [date, value, /*sun ,*/moment(date).format('LLL') + "\nLux:  " + value + '\nSun:' + sun]
+        return [date, value, /*sun ,*/moment(date).format('LLL') + "\nLux:  " + value]
     });
     dataTable.addRows(data);
     let chart = new google.visualization.LineChart($('#chart').get(0));
@@ -79,9 +79,10 @@ $('document').ready(function () {
         'showTodayButton': true,
     });
     datepicker = $('#date_to').datetimepicker().data('DateTimePicker');
+    let now = moment();
     datepicker.options({
-        'maxDate': new Date(),
-        'defaultDate': moment(),
+        'maxDate': now,
+        'defaultDate': now,
         'sideBySide': true,
         'showTodayButton': true,
     });
