@@ -1,6 +1,6 @@
 google.charts.load("visualization", "1", {packages: ["corechart"]});
 google.charts.setOnLoadCallback(getData);
-function getData() {
+function getData(date_from = null, date_to = null) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -29,7 +29,7 @@ function drawChart(data) {
             title: "Date",
             gridlines: {count: 11, color: '#CCC'},
             format: 'hh:mm:ss',
-            ticks: data.filter((item,index) => index % 20 === 0).map((obj) => {
+            ticks: data.filter((item, index) => index % 20 === 0).map((obj) => {
                 return new Date((new Date(obj['date'])).getTime() + userOffset)
             }),
             slantedTextAngle: 45,
@@ -85,6 +85,15 @@ $('document').ready(function () {
     });
     $('#make_measurement').click(() => {
         make_measurement();
+    });
+    $('#update_chart').click(() => {
+        $.post(
+            '/api',
+            {
+                'date_from': $('#date_from').datetimepicker().data('DateTimePicker').getFormattedDate('yyyy-mm-dd MM:ss'),
+                'date_to': $('#date_to').datetimepicker().data('DateTimePicker').getFormattedDate('yyyy-mm-dd MM:ss'),
+            }
+        );
     });
     console.log($('make_measurement').get(0));
 });
