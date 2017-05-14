@@ -55,7 +55,6 @@ function drawChart(data) {
     chart.draw(dataTable, options);
 }
 function make_measurement() {
-    console.log('measurement');
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         getData();
@@ -98,7 +97,6 @@ $('document').ready(function () {
 		drawChart(data);
 	});
     });   
-    console.log($('make_measurement').get(0));
 });
 $(window).resize(function () {
     if (this.resizeTO) clearTimeout(this.resizeTO);

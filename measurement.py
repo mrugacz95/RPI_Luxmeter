@@ -19,7 +19,7 @@ def get_light(addr=DEVICE):
 def make_measurement():
     import MySQLdb
     config = configparser.ConfigParser()
-    config.read('databaseconfig.ini')
+    config.read('/home/pi/RPI_Luxmeter/databaseconfig.ini')
     section = 'DEFAULT'
     connection = MySQLdb.connect(host=config.get(section, 'host'),
                                  user=config.get(section, 'user'),
